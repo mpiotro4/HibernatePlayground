@@ -7,31 +7,33 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Setter
+@Getter
 @Entity
 public class Author {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     private String name;
-
-    public List<Book> getBooks() {
-        return books;
-    }
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
 
-    public Author() {}
+    public Author() {
+    }
+
     public Author(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Author{id=" + id + ", name='" + name + "', booksCount=" + books.size() + "}";
+    }
 }
+
